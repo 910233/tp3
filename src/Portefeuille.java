@@ -19,10 +19,14 @@ public class Portefeuille {
 	 * @return Vrai si la transaction a Ã©tÃ© effectuÃ©e, faux sinon.  
 	 */
 	public boolean transfertDevise (Portefeuille destination, double montantJetons){
-		/**
-			 FONCTION Ã€ IMPLEMENTER
-		**/
-		return false;
+		if (   !(destination.getMonnaie().getNom().equals(this.monnaie.getNom())
+		    && this.montant >= montantJetons)) 
+			return false;
+		
+		destination.montant += montantJetons;
+		this.montant        -= montantJetons;
+
+		return true;
 	}
   
 	/**
@@ -33,10 +37,11 @@ public class Portefeuille {
 	 * @return true si le montant en euros est supÃ©rieur ou Ã©gal Ã  0 
 	 */
 	public boolean achatDevise (double montantEuros){
-	  /**
-			 FONCTION Ã€ IMPLEMENTER
-	  **/
-	  return false;
+		if(montantEuros < 0) return false;
+
+		this.montant += montantEuros / this.monnaie.getValeurDeJeton();
+
+		return true;
 	}
   
 	/**
@@ -46,7 +51,7 @@ public class Portefeuille {
 	 * @return true si les nom du propriÃ©taire est correct
 	 */
 	public boolean estProprietaire (String proprietaire){
-		  return (proprietaire.equals(this.proprietaire))?true:false;
+		return (proprietaire.equals(this.proprietaire))?true:false;
 	}
   
 	/**
